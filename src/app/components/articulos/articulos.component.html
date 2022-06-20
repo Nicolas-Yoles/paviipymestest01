@@ -2,15 +2,15 @@
   {{ Titulo }} <small>{{ TituloAccionABMC[AccionABMC] }}</small>
 </h3>
 
-<!-- FORMULARIO DE BUSQUEDA -->
 <form
   name="FormBusqueda"
   [formGroup]="FormBusqueda"
   class="bg-light"
   *ngIf="AccionABMC == 'L'"
 >
-  <!-- FILTROS DE BUSQUEDA -->
+  <!-- FORMULARIO DE BUSQUEDA -->
   <div class="form-group row">
+    <!-- FILTROS DE BUSQUEDA -->
     <label class="col-form-label col-sm-2 offset-sm-1">Nombre:</label>
     <div class="col-sm-3">
       <input type="text" class="form-control" formControlName="Nombre" />
@@ -24,27 +24,8 @@
       </select>
     </div>
   </div>
-
-
-  <!-- FILTROS DE BUSQUEDA -VERSION NICO -->
-  <div class="form-group row">
-    <label class="col-form-label col-sm-1 offset-sm-1">Apellido:</label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" formControlName="Nombre" />
-    </div>
-    <label class="col-form-label col-sm-1 offset-sm-1">Domicilio:</label>
-    <div class="col-sm-4">
-      <select class="form-control" name="Activo" formControlName="Activo">
-        <option *ngFor="let opt of OpcionesActivo" [ngValue]="opt.Id">
-          {{ opt.Nombre }}
-        </option>
-      </select>
-    </div>
-  </div>
-
-
-  <!-- BOTONES DE BUSQUEDA -->
   <div class="row justify-content-center">
+    <!-- BOTONES DE BUSQUEDA -->
     <button
       type="button"
       class="btn btn-primary"
@@ -60,12 +41,12 @@
   </div>
 </form>
 
-<!-- TABLA DE RESULTADOS -->
 <div
   id="divTablaResultados"
   *ngIf="AccionABMC == 'L' && Items != null && Items.length > 0"
 >
   <table class="table table-bordered table-striped">
+    <!-- TABLA DE RESULTADOS -->
     <!-- TITULOS DE COLUMNAS -->
     <thead>
       <tr>
@@ -73,6 +54,7 @@
         <th class="text-center">Precio</th>
         <th class="text-center">Stock</th>
         <th class="text-center">Fecha de Alta</th>
+        <th class="text-center">Familia</th>
         <th class="text-center">Activo</th>
         <th class="text-center text-nowrap">Acciones</th>
       </tr>
@@ -84,6 +66,7 @@
         <td class="text-right">{{ item.Precio | currency }}</td>
         <td class="text-right">{{ item.Stock }}</td>
         <td>{{ item.FechaAlta | date: "dd/MM/yyyy" }}</td>
+        <td>{{GetArticuloFamiliaNombre(item.IdArticuloFamilia)}}</td>
         <td>{{ item.Activo ? "SI" : "NO" }}</td>
         <td class="text-center text-nowrap">
           <button
@@ -116,8 +99,8 @@
       </tr>
     </tbody>
   </table>
-  <!-- PAGINADOR -->
   <div id="divPaginador">
+    <!-- PAGINADOR -->
     <div class="row bg-light">
       <div class="col">
         <span class="label label-default">Registros: {{ RegistrosTotal }}</span>
@@ -137,7 +120,6 @@
   </div>
 </div>
 
-<!-- MENSAJE: "No se encontraron registros" -->
 <div
   id="divMsjFormBusqueda"
   class="alert alert-info"
@@ -147,15 +129,14 @@
   <!-- texto: No se encontraron registros -->
 </div>
 
-<!-- FORMULARIO DE REGISTRO -->
 <form
   name="FormRegistro"
   [formGroup]="FormRegistro"
   class="bg-light"
   *ngIf="AccionABMC != 'L'"
 >
-  <!-- CAMPOS DE FORMULARIO -->
   <fieldset [disabled]="AccionABMC === 'C'">
+    <!-- CAMPOS DE FORMULARIO -->
     <!--campo nombre-->
     <div class="form-group row">
       <label class="col-form-label col-sm-2 offset-sm-2" for="Nombre">
@@ -193,7 +174,6 @@
         />
       </div>
     </div>
-
     <!--campo codigodebarra-->
     <div class="form-group row">
       <label class="col-form-label col-sm-2 offset-sm-2" for="CodigoDeBarra">
@@ -208,7 +188,6 @@
         />
       </div>
     </div>
-
     <!--campo idarticulofamilia-->
     <div class="form-group row">
       <label
@@ -232,7 +211,6 @@
         </select>
       </div>
     </div>
-
     <!--campo fechaalta-->
     <div class="form-group row">
       <label class="col-form-label col-sm-2 offset-sm-2">
@@ -267,9 +245,8 @@
       </div>
     </div>
   </fieldset>
-
-  <!-- Botones Grabar, Cancelar/Volver' -->
   <div class="row justify-content-center">
+    <!-- Botones Grabar, Cancelar/Volver' -->
     <button
       type="button"
       class="btn btn-primary"
@@ -285,8 +262,8 @@
     </button>
   </div>
 
-  <!--texto: Revisar los datos ingresados...-->
   <div id="divMsjFormRegistro" class="row alert alert-danger" *nfIf="false">
+    <!--texto: Revisar los datos ingresados...-->
     <i class="fa fa-exclamation-sign"></i>{{ Mensajes["RD"] }}
   </div>
 </form>
